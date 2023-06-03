@@ -49,10 +49,53 @@ class fsm extends Module {
       }
       is(D) {
         when(io.in === 0.U) {
-        state
+          state := E 
+        }.otherwise {
+          state := F 
+        }
+      }
+      is(E) {
+        when(io.in === 0.U) {
+          state := E 
+        }.otherwise {
+          state := F 
+        }
+      }
+      is(F) {
+        when(io.in === 0.U) {
+          state := B 
+        }.otherwise {
+          state := G 
+        }
+      }
+      is(G) {
+        when(io.in === 0.U) {
+          state := B 
+        }.otherwise {
+          state := H 
+        }
+      }
+      is(H) {
+        when(io.in === 0.U) {
+          state := B 
+        }.otherwise {
+          state := I
+        }
+      }
+      is(I) {
+        when(io.in === 0.U) {
+          state := B 
+        }.otherwise {
+          state := I
         }
       }
     }
   }
-  
+  when(state === E) {
+    io.out := 1.U 
+  }.elsewhen(state === I) {
+    io.out := 1.U 
+  }.otherwise {
+    io.out := 0.U
+  }
 }
